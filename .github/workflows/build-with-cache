@@ -1,4 +1,4 @@
-name: CI
+name: CI_WITH_CACHE
 on: workflow_dispatch
 jobs:
   build:
