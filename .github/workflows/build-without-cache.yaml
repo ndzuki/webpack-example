@@ -7,7 +7,7 @@ jobs:
     #   image: ndzuki/act-runner-test:v2
     timeout-minutes: 2
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
       # - name: Cache node_modules
       #   uses: actions/cache@v4
