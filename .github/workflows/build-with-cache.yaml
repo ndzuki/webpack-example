@@ -3,8 +3,8 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: ndzuki/act-runner-test:v1
+    # container:
+    #   image: ndzuki/act-runner-test:v1
     timeout-minutes: 1
     steps:
       - uses: actions/checkout@v4
