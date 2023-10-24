@@ -1,0 +1,46 @@
+name: CI
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ndzuki/act-runner-test:v1
+    timeout-minutes: 1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: cache-node_modules
+        env:
+          SEGMENT_DOWNLOAD_TIMEOUT_MINS: "1"
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+            ${{ runner.os }}-
+
+      - if: ${{ steps.cache-node_modules.outputs.cache-hit != 'true' }}
+        name: List the state of node modules
+        continue-on-error: true
+        run: npm list
+
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version-file: 'package.json'
+      #     cache: 'npm'
+
+      # - name: Set git config for github.com
+      #   shell: bash
+      #   run: |
+      #     git config --global url."https//ghproxy.com/https://github.com".insteadOf https://github.com
+
+      - name: Instal dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
