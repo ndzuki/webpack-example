@@ -37,7 +37,7 @@ jobs:
       #     git config --global url."https//ghproxy.com/https://github.com".insteadOf https://github.com
 
       - name: Instal dependencies
-        run: npm ci || npm install --force
+        run: npm install --force
 
       - name: Build
         run: npm run build
